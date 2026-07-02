@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About · Scott</title>
+  <!-- Font Awesome for icons (optional but adds flair) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f7f9fc 0%, #e9edf2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 1.5rem;
+    }
+
+    /* main card – clean, elevated, with subtle group hint */
+    .profile-card {
+      max-width: 880px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 2.5rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.25), 0 8px 18px rgba(0,0,0,0.05);
+      padding: 2rem 2.2rem 2.5rem;
+      transition: 0.2s ease-in-out;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(2px);
+    }
+
+    /* subtle group indicator – repo context */
+    .repo-badge {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: #3a4a5a;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 0.8rem;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.3px;
+    }
+
+    .repo-badge i {
+      color: #2d6a9f;
+      font-size: 1.1rem;
+    }
+
+    .repo-badge span {
+      background: #eef2f6;
+      padding: 0.25rem 1rem;
+      border-radius: 30px;
+      font-weight: 500;
+      font-size: 0.8rem;
+      color: #1f3a57;
+    }
+
+    /* header: avatar + name + title */
+    .profile-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .avatar-frame {
+      flex-shrink: 0;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1e3c5f, #2b5b8a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 18px -6px rgba(26, 67, 113, 0.3);
+      border: 4px solid white;
+      transition: 0.2s;
+    }
+
+    .avatar-frame i {
+      font-size: 4.2rem;
+      color: white;
+      filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1));
+    }
+
+    .name-title h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #0b1e2e;
+      letter-spacing: -0.5px;
+      line-height: 1.2;
+    }
+
+    .name-title .highlight {
+      color: #256a9c;
+      font-weight: 600;
+    }
+
+    .name-title .role {
+      display: inline-block;
+      margin-top: 0.3rem;
+      background: #eaf0f8;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #1d4468;
+      letter-spacing: 0.3px;
+      backdrop-filter: blur(4px);
+    }
+
+    .name-title .role i {
+      margin-right: 6px;
+      font-size: 0.9rem;
+      color: #2d6a9f;
+    }
+
+    /* main content grid: about + details */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 2rem;
+      margin-top: 1.2rem;
+    }
+
+    @media (max-width: 650px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+        gap: 1.8rem;
+      }
+      .profile-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .avatar-frame {
+        width: 100px;
+        height: 100px;
+      }
+      .avatar-frame i {
+        font-size: 3.4rem;
+      }
+      .profile-card {
+        padding: 1.8rem;
+      }
+    }
+
+    /* about section */
+    .about-text p {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #1f2e3d;
+      margin-bottom: 1.4rem;
+      font-weight: 400;
+    }
+
+    .about-text p i {
+      color: #256a9c;
+      margin-right: 6px;
+    }
+
+    .divider {
+      width: 60px;
+      height: 4px;
+      background: linear-gradient(90deg, #2b6a9e, #7ba3c9);
+      border-radius: 4px;
+      margin: 1.2rem 0 1.4rem;
+    }
+
+    /* skill chips */
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 0.8rem;
+      margin: 0.8rem 0 1.2rem;
+    }
+
+    .skill-tags span {
+      background: #eef3f9;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #1a3f5c;
+      letter-spacing: 0.2px;
+      border: 1px solid #d7e2ed;
+      box-shadow: inset 0 1px 2px rgba(255,255,255,0.7);
+    }
+
+    /* right panel – info cards */
+    .info-panel {
+      background: #f6faff;
+      border-radius: 1.8rem;
+      padding: 1.5rem 1.6rem;
+      box-shadow: inset 0 1px 4px rgba(0,0,0,0.02), 0 6px 12px -8px rgba(0,0,0,0.1);
+      border: 1px solid #e7edf6;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.9rem;
+      border-bottom: 1px dashed #d3dfec;
+    }
+
+    .info-item:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .info-item i {
+      width: 28px;
+      font-size: 1.3rem;
+      color: #256a9c;
+      text-align: center;
+    }
+
+    .info-item .label {
+      font-weight: 600;
+      color: #0e2a40;
+      font-size: 0.9rem;
+      width: 70px;
+      flex-shrink: 0;
+    }
+
+    .info-item .value {
+      color: #1b3952;
+      font-weight: 500;
+      word-break: break-word;
+    }
+
+    .info-item .value a {
+      color: #1b5a88;
+      text-decoration: none;
+      border-bottom: 1px dotted #9ab9d9;
+      transition: 0.15s;
+    }
+
+    .info-item .value a:hover {
+      color: #083353;
+      border-bottom-color: #083353;
+    }
+
+    /* group / repo context link */
+    .repo-context {
+      margin-top: 2rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid #dbe3ed;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.8rem;
+      font-size: 0.9rem;
+      color: #2b4b6a;
+    }
+
+    .repo-context .file-badge {
+      background: #eaf0f6;
+      padding: 0.3rem 1.2rem;
+      border-radius: 40px;
+      font-family: 'Fira Code', 'Consolas', monospace;
+      font-size: 0.8rem;
+      color: #16425b;
+      border: 1px solid #cbdae8;
+    }
+
+    .repo-context .file-badge i {
+      margin-right: 8px;
+      color: #256a9c;
+    }
+
+    .repo-context .group-msg {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .repo-context .group-msg i {
+      color: #3c7aa8;
+    }
+
+    /* small extra */
+    .emoji-bullet {
+      margin-right: 4px;
+    }
+
+    .tagline {
+      font-style: italic;
+      color: #2b4d6b;
+      font-weight: 400;
+      background: #eef5fc;
+      padding: 0.2rem 1.2rem;
+      border-radius: 40px;
+      display: inline-block;
+      font-size: 0.9rem;
+    }
+
+    /* responsiveness fine-tune */
+    @media (max-width: 480px) {
+      .profile-card {
+        padding: 1.2rem;
+      }
+      .info-item {
+        flex-wrap: wrap;
+        gap: 0.2rem;
+      }
+      .info-item .label {
+        width: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-card">
+
+    <!-- group repository context – file name: scott-profile -->
+    <div class="repo-badge">
+      <i class="fas fa-code-branch"></i>
+      <span>group / team-repo</span>
+      <i class="fas fa-folder-open" style="margin-left: 0.3rem;"></i>
+      <span style="background: #dce6f0; font-weight: 600;">scott-profile.html</span>
+    </div>
+
+    <!-- header: avatar + name -->
+    <div class="profile-header">
+      <div class="avatar-frame">
+        <i class="fas fa-user-circle"></i> <!-- avatar icon -->
+      </div>
+      <div class="name-title">
+        <h1>Scott <span class="highlight">Mitchell</span></h1>
+        <div class="role">
+          <i class="fas fa-laptop-code"></i> Lead Developer · Group 7
+        </div>
+        <div style="margin-top: 0.6rem; display: flex; flex-wrap: wrap; gap: 0.4rem 0.8rem;">
+          <span class="tagline"><i class="fas fa-quote-left" style="font-size: 0.7rem;"></i> clean code, sharp mind</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- content grid: about + info -->
+    <div class="content-grid">
+      <!-- left: about -->
+      <div class="about-text">
+        <p>
+          <i class="fas fa-user-astronaut"></i> 
+          I’m a full-stack developer with a passion for building accessible, 
+          performant web experiences. Currently working on the <strong>“GroupCollab”</strong> 
+          repository — a platform for team-based project management.
+        </p>
+        <p>
+          <i class="fas fa-code"></i> 
+          I specialize in <strong>React, Node.js, and cloud architecture</strong>. 
+          Outside of coding, I mentor junior devs and contribute to open-source 
+          tooling. I believe great software starts with empathy and clean communication.
+        </p>
+        <div class="divider"></div>
+        <div style="font-weight: 500; color: #0b263b; margin-bottom: 0.4rem;">
+          <i class="fas fa-wrench" style="margin-right: 8px;"></i> Core competencies
+        </div>
+        <div class="skill-tags">
+          <span>TypeScript</span>
+          <span>React</span>
+          <span>Node.js</span>
+          <span>Docker</span>
+          <span>GraphQL</span>
+          <span>CI/CD</span>
+        </div>
+        <p style="font-size: 0.95rem; margin-top: 0.6rem; color: #2b4f6e;">
+          <i class="fas fa-users" style="margin-right: 6px;"></i> 
+          Group repo lead · 3+ years in agile teams · code review champion
+        </p>
+      </div>
+
+      <!-- right: info panel -->
+      <div class="info-panel">
+        <div class="info-item">
+          <i class="fas fa-map-pin"></i>
+          <span class="label">Location</span>
+          <span class="value">🌍 Berlin, DE</span>
+        </div>
+        <div class="info-item">
+          <i class="fas fa-envelope"></i>
+          <span class="label">Email</span>
+          <span class="value"><a href="mailto:scott.m@grouprepo.dev">scott.m@grouprepo.dev</a></span>
+        </div>
+        <div class="info-item">
+          <i class="fab fa-github"></i>
+          <span class="label">GitHub</span>
+          <span class="value"><a href="#" target="_blank">github.com/scott-mitchell</a></span>
+        </div>
+        <div class="info-item">
+          <i class="fab fa-linkedin"></i>
+          <span class="label">LinkedIn</span>
+          <span class="value"><a href="#" target="_blank">linkedin.com/in/scottdev</a></span>
+        </div>
+        <div class="info-item" style="border-bottom: 0; margin-bottom: 0; padding-bottom: 0;">
+          <i class="fas fa-calendar-alt"></i>
+          <span class="label">Joined</span>
+          <span class="value">Jan 2026 · Team repo</span>
+        </div>
+        <!-- subtle group note -->
+        <div style="margin-top: 1rem; background: #e3ecf7; border-radius: 40px; padding: 0.25rem 1rem; font-size: 0.8rem; color: #13416b; display: inline-block;">
+          <i class="fas fa-people-arrows"></i> scott-profile · group use
+        </div>
+      </div>
+    </div>
+
+    <!-- footer: file context & group repo -->
+    <div class="repo-context">
+      <div class="file-badge">
+        <i class="fas fa-file-code"></i> scott-profile.html
+      </div>
+      <div class="group-msg">
+        <i class="fas fa-users-cog"></i>
+        <span>part of <strong>group-repo</strong> · profile page</span>
+        <i class="fas fa-check-circle" style="color: #2d7a3d; margin-left: 0.3rem;"></i>
+      </div>
+      <div style="display: flex; gap: 0.6rem; font-size: 0.8rem;">
+        <span><i class="far fa-clock"></i> updated: 2026-07-02</span>
+      </div>
+    </div>
+
+    <!-- tiny extra: group reference -->
+    <div style="margin-top: 0.8rem; font-size: 0.7rem; color: #5f7d99; display: flex; justify-content: flex-end; gap: 0.5rem; border-top: 1px solid #eef2f7; padding-top: 0.7rem;">
+      <span><i class="fas fa-tag"></i> #about-scott</span>
+      <span><i class="fas fa-share-alt"></i> group profile</span>
+    </div>
+
+  </div>
+</body>
+</html>
